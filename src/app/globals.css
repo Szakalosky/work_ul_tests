@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer utilities {
+  @media (max-width: 768px) {
+    .custom-sidebar {
+      @apply bg-zinc-300 h-full grid grid-rows-2 grid-cols-1 text-sm;
+    }
+  }
+  @media (min-width: 768px) {
+    .custom-sidebar {
+      @apply bg-zinc-300 w-1/4  h-auto  grid grid-rows-2 grid-cols-1;
+    }
+    .custom-main-content {
+      @apply min-h-screen flex flex-row bg-sky-600;
+    }
+
+    .custom-user-data {
+      @apply flex flex-col  bg-slate-600  items-start justify-start gap-2 py-4;
+    }
+
+    .custom-edit-container {
+      @apply flex flex-col min-w-full;
+    }
+
+    .custom-edit-panel-initial-data {
+      @apply grid grid-cols-3 grid-rows-1  bg-default-400 p-2;
+    }
+
+    .custom-edit-panel-initial-data-inner {
+      @apply grid grid-cols-1 grid-rows-2  bg-default-700 items-center text-center gap-2 p-2;
+    }
+
+    .custom-edit-panel {
+      @apply flex flex-col;
+    }
+
+    .custom-edit-panel-department-position-groups {
+      @apply grid grid-cols-2 grid-rows-1 bg-orange-700 items-start gap-8;
+    }
+
+    .custom-edit-panel-emails-phones {
+      @apply grid grid-cols-1 grid-rows-2 bg-sky-600 gap-2 w-1/2;
+    }
+  }
+  @media (max-width: 700px) {
+    .custom-main-content {
+      @apply min-h-screen flex flex-col bg-violet-900 p-2;
+    }
+
+    .custom-sidebar {
+      @apply bg-zinc-300 w-full flex flex-col p-4;
+    }
+
+    .custom-user-data {
+      @apply flex flex-col w-[100%] h-auto bg-slate-600  items-start justify-start gap-2 py-4;
+    }
+
+    .custom-edit-container {
+      @apply flex flex-col;
+    }
+
+    .custom-edit-panel-initial-data {
+      @apply grid grid-cols-3 grid-rows-1  bg-default-400 p-2;
+    }
+
+    .custom-edit-panel-initial-data-inner {
+      @apply grid grid-cols-1 grid-rows-2  bg-default-700 items-center text-center gap-2 p-2;
+    }
+
+    .custom-edit-panel {
+      @apply flex flex-col;
+    }
+
+    .custom-edit-panel-department-position-groups {
+      @apply grid grid-cols-2 grid-rows-1 bg-orange-700 items-start gap-8;
+    }
+
+    .custom-edit-panel-emails-phones {
+      @apply grid grid-cols-2 grid-rows-1 bg-sky-600 gap-2;
+    }
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
