@@ -21,7 +21,6 @@ const Page = () => {
 
   const { id } = useParams<{ id: string }>();
 
-  console.log("Parametr", id);
   const [allDataFromAPI, setAllDataFromAPI] = useState<dataFromAPIType>({
     ...data,
   });
@@ -49,7 +48,16 @@ const Page = () => {
     console.log("MOJE", allDataFromAPI);
   }, []);
 
+  useEffect(() => {
+    console.log("Id usera", id);
+  }, [id]);
+
   //query, localStorage,
+
+  // W jaki sposób przekazać dane typu JSON do innej strony bez pokazywania ich w URL(dane wrażliwe)?
+  // przecież trzeba użyć Link,aby przekierowało do innej strony.
+  // zapisać dane w localStorage, sessionStorage, a potem je odczytać na innej stronie.
+  // stworzyć Context API React
 
   const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
   const [allDataFromFetch, setAllDataFromFetch] = useState<object[]>([]);
@@ -68,8 +76,12 @@ const Page = () => {
         </table>
         <div className="mt-4">
           <Link
-            href={`/user/edit/${id}`}
-            className="bg-yellow-300 p-3 rounded-2xl "
+            href={{
+              pathname: `/user/edit/${id}`,
+              query: { data: JSON.stringify(allDataFromAPI) },
+            }}
+            className="bg-yellow-300 p-3 rounded-2xl"
+            target="_blank"
           >
             Edytuj
           </Link>

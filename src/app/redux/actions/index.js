@@ -26,6 +26,20 @@ export const setElementsHeaders = (elements) => {
   };
 };
 
+export const setSortUsersByColumn = (type) => {
+  return {
+    type: "SET_SORT_USERS_BY_COLUMN",
+    payload: type,
+  };
+};
+
+export const setUsersByElements = (type) => {
+  return {
+    type: "SET_USERS_BY_ELEMENTS",
+    payload: type,
+  };
+};
+
 export const setSearchText = (text) => {
   return {
     type: "SET_SEARCH_TEXT",

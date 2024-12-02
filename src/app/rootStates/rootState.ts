@@ -12,5 +12,7 @@ export type RootState = {
     sorting: AlphabeticallyFilterType[];
     sortingTypeTwo: ElementsFilterType[];
     searchText: string | null;
+    sortUsersByColumn: number;
+    filterByElementsButton: number;
   };
 };

@@ -1,3 +1,23 @@
+const getWeekNumber = (date) => {
+  const currentDate = typeof date === "object" ? date : new Date();
+  const januaryFirst = new Date(currentDate.getFullYear(), 0, 1);
+  const daysToNextMonday =
+    januaryFirst.getDay() === 1 ? 0 : (7 - januaryFirst.getDay()) % 7;
+  const nextMonday = new Date(
+    currentDate.getFullYear(),
+    0,
+    januaryFirst.getDate() + daysToNextMonday
+  );
+
+  return currentDate < nextMonday
+    ? 52
+    : currentDate > nextMonday
+    ? Math.ceil((currentDate - nextMonday) / (24 * 3600 * 1000) / 7)
+    : 1;
+};
+
+const weekNumber = getWeekNumber();
+
 const initialState = {
   initialUsersArray: [
     {
@@ -6,7 +26,7 @@ const initialState = {
       lastName: "Adamczyk",
       phoneNumber: "+48123234567",
       email: "a@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "8-16",
     },
     {
@@ -15,7 +35,7 @@ const initialState = {
       lastName: "Trębacz",
       phoneNumber: "+48123234567",
       email: "k@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "8-16",
     },
     {
@@ -24,7 +44,7 @@ const initialState = {
       lastName: "Kowalczyk",
       phoneNumber: "+48123234567",
       email: "d@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "7-15",
     },
     {
@@ -33,7 +53,7 @@ const initialState = {
       lastName: "Karp",
       phoneNumber: "+48123234567",
       email: "j@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "7-15",
     },
     {
@@ -42,7 +62,7 @@ const initialState = {
       lastName: "Łysoniewski",
       phoneNumber: "+48123234567",
       email: "p@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "7-15",
     },
     {
@@ -51,7 +71,7 @@ const initialState = {
       lastName: "Putek",
       phoneNumber: "+48123234567",
       email: "m@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "8-16",
     },
     {
@@ -60,7 +80,7 @@ const initialState = {
       lastName: "Sędkowski",
       phoneNumber: "+48123234567",
       email: "k@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "8-16",
     },
     {
@@ -69,7 +89,7 @@ const initialState = {
       lastName: "Kuta",
       phoneNumber: "+48123234567",
       email: "m@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "7-15",
     },
     {
@@ -78,7 +98,7 @@ const initialState = {
       lastName: "Kamiński",
       phoneNumber: "+48133345567",
       email: "k@com.pl",
-      weekNo: "48",
+      weekNo: weekNumber.toString(),
       timeWork: "8-16",
     },
   ],
@@ -92,6 +112,7 @@ const initialState = {
   sorting: [
     { id: 0, filter: "Po nazwisku alfabetycznie" },
     { id: 1, filter: "Po nazwisku alfabetycznie od końca" },
+    { id: 2, filter: "Po nazwie email" },
   ],
   sortingTypeTwo: [
     { id: 0, elements: "4" },
@@ -99,6 +120,8 @@ const initialState = {
     { id: 2, elements: "Wszystkie" },
   ],
   searchText: "",
+  sortUsersByColumn: 0,
+  filterByElementsButton: 1,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -131,6 +154,18 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         searchText: action.payload,
+      };
+    }
+    case "SET_SORT_USERS_BY_COLUMN": {
+      return {
+        ...state,
+        sortUsersByColumn: action.payload,
+      };
+    }
+    case "SET_USERS_BY_ELEMENTS": {
+      return {
+        ...state,
+        filterByElementsButton: action.payload,
       };
     }
     default:

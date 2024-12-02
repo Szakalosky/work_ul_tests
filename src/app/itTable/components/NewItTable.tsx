@@ -11,9 +11,9 @@ const NewItTable = () => {
     (state: RootState) => state.name.columnsHeaders
   );
 
-  useEffect(() => {
-    console.log("USERZY", itUsers);
-  }, [itUsers]);
+  // useEffect(() => {
+  //   console.log("USERZY", itUsers);
+  // }, [itUsers]);
 
   return (
     <div className="m-1">
