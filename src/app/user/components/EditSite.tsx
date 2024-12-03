@@ -16,8 +16,10 @@ const EditSite = ({
 }: {
   sentUserId?: string;
   setSentUserId?: (sentUserId: string) => void;
-  passedAllDataFromFetch?: object[];
-  setPassedAllDataFromFetch?: (passedAllDataFromFetch: object[]) => void;
+  passedAllDataFromFetch?: dataFromAPIType[];
+  setPassedAllDataFromFetch?: (
+    passedAllDataFromFetch: dataFromAPIType[]
+  ) => void;
 }) => {
   const [radioValue, setRadioValue] = useState<string>();
 
@@ -73,24 +75,22 @@ const EditSite = ({
   const [positionFromData, setPositionFromData] = useState<string | null>(
     position
   );
-  const [changedObject, setChangedObject] = useState<Object>({});
-  // useEffect(() => {
-  //   console.log("Coto", saveImportantData);
-  //   console.log("Dzial", departmentFromData);
-  //   console.log("Pozycja", positionFromData);
-  //   console.log("Email", emailsFromData);
-  //   console.log("Telefon", phoneNumbersFromData);
-  // }, [
-  //   saveImportantData,
-  //   departmentFromData,
-  //   positionFromData,
-  //   emailsFromData,
-  //   phoneNumbersFromData,
-  // ]);
+  const [changedObject, setChangedObject] = useState<object>({});
+  useEffect(() => {
+    console.log("Coto", saveImportantData);
+    console.log("Dzial", departmentFromData);
+    console.log("Pozycja", positionFromData);
+    console.log("Email", emailsFromData);
+    console.log("Telefon", phoneNumbersFromData);
+  }, [
+    saveImportantData,
+    departmentFromData,
+    positionFromData,
+    emailsFromData,
+    phoneNumbersFromData,
+  ]);
 
-  const [editingID, setEditingId] = useState<number>();
-
-  const postData = async (newData: Object) => {
+  const postData = async (newData: object) => {
     try {
       await axios
         .post(
@@ -103,7 +103,7 @@ const EditSite = ({
           }
         )
         .then((response) => console.log(response.status));
-      setChangedObject(newData);
+      //setChangedObject(newData);
     } catch (error) {
       console.error("Nie udało się wysłać zmienionego obiektu", error);
     }
@@ -115,9 +115,6 @@ const EditSite = ({
     //setEditingId(Number(sentUserId));
     const userToEdit = saveImportantData.hasOwnProperty("id");
 
-    if (editingID === undefined) {
-      console.log("Nie otrzymano jeszcze id", editingID);
-    }
     if (userToEdit && saveImportantData.id === Number(sentUserId)) {
       const updatedObject = {
         firstName: firstNameFromData,
@@ -130,6 +127,61 @@ const EditSite = ({
       };
       postData(updatedObject);
     }
+  };
+
+  const [currentEmail, setCurrentEmail] = useState<string>("");
+  const [currentPhone, setCurrentPhone] = useState<string>("");
+  const [errorEmail, setErrorEmail] = useState<string | null>(null);
+  const [errorPhone, setErrorPhone] = useState<string | null>(null);
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const addNextEmail = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!currentEmail.trim()) {
+      setErrorEmail("Niepoprawny adres email");
+      return;
+    }
+
+    if (!validateEmail(currentEmail)) {
+      setErrorEmail("Niepoprawny adres email");
+      return;
+    }
+
+    setEmailsFromData((prevEmails) => [...(prevEmails || []), currentEmail]);
+    setCurrentEmail("");
+    setErrorEmail(null);
+  };
+
+  const validatePhone = (phoneNumber: string): boolean => {
+    const phoneRegex =
+      /^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
+  const addNextPhone = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!currentPhone.trim()) {
+      setErrorPhone("Niepoprawny numer telefonu");
+      return;
+    }
+
+    if (!validatePhone(currentPhone)) {
+      setErrorPhone("Niepoprawny numer telefonu");
+      return;
+    }
+
+    setPhoneNumbersFromData((prevPhone) => [
+      ...(prevPhone || []),
+      "+" + currentPhone,
+    ]);
+    setCurrentPhone("");
+    setErrorPhone(null);
   };
 
   return (
@@ -162,13 +214,13 @@ const EditSite = ({
           </div>
           <div className="custom-edit-panel ">
             <div className="custom-edit-panel-department-position-groups">
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/3">
                 <RadioGroup label="Dział" classNames={{ label: "text-black" }}>
                   {names.map((type) => (
                     <Radio
                       key={type.id}
                       value={type.name}
-                      // data-selected={departmentFromData || ""}
+                      defaultValue={departmentFromData || ""}
                       onChange={(e) => setDepartmentFromData(e.target.value)}
                     >
                       {type.name}
@@ -176,7 +228,7 @@ const EditSite = ({
                   ))}
                 </RadioGroup>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/2 text-wrap">
                 <RadioGroup
                   label="Pozycja"
                   classNames={{ label: "text-black" }}
@@ -185,6 +237,7 @@ const EditSite = ({
                     <Radio
                       key={type.id}
                       value={type.name}
+                      defaultValue={positionFromData || ""}
                       onChange={(e) => setPositionFromData(e.target.value)}
                     >
                       {type.name}
@@ -216,54 +269,45 @@ const EditSite = ({
               </div>
             </div>
             <div className="custom-edit-panel-emails-phones">
-              <div className="flex flex-col items-end gap-2">
-                <p className="text-black">Email</p>
+              <div className="flex flex-col items-end justify-between w-1/2 bg-gray-700">
+                <p className="text-black h-auto">Email</p>
                 <Input
                   type="email"
-                  value={emailsFromData[0] || ""}
-                  onChange={(e) => setEmailsFromData([e.target.value])}
+                  value={currentEmail}
+                  onChange={(e) => setCurrentEmail(e.target.value)}
+                  className="h-auto"
                 />
-                <Popover placement="right">
-                  <PopoverTrigger>
-                    <Button isIconOnly>
-                      <CiCirclePlus size={30} />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <div className="flex flex-col p-2 gap-2">
-                      <Input
-                        type="text"
-                        className="  border border-black rounded-xl"
-                      />
-                      <Button className="bg-green-600">Dodaj Email</Button>
-                    </div>
-                  </PopoverContent>
-                </Popover>
+
+                {errorEmail && (
+                  <p className="text-red-700 text-sm">{errorEmail}</p>
+                )}
+                {emailsFromData?.map((item, index) => (
+                  <p key={index}>{item}</p>
+                ))}
+                <Button isIconOnly onClick={(e) => addNextEmail(e)}>
+                  <CiCirclePlus size={30} />
+                </Button>
               </div>
-              <div className="flex flex-col items-end gap-2">
+              <div className="flex flex-col items-end justify-between h-[100%] gap-2 w-1/2">
                 <p className="text-black">Telefon</p>
                 <Input
-                  type="text"
-                  value={phoneNumbersFromData[0] || ""}
-                  onChange={(e) => setPhoneNumbersFromData([e.target.value])}
+                  type="number"
+                  value={currentPhone}
+                  onChange={(e) => setCurrentPhone(e.target.value)}
                 />
-                <Popover placement="right">
-                  <PopoverTrigger>
-                    <Button isIconOnly>
-                      <CiCirclePlus size={30} />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <div className="flex flex-col p-2 gap-2">
-                      <Input className="  border border-black rounded-xl" />
-                      <Button className="bg-green-600">Dodaj Telefon</Button>
-                    </div>
-                  </PopoverContent>
-                </Popover>
+                {errorPhone && (
+                  <p className="text-red-700 text-sm">{errorPhone}</p>
+                )}
+                {phoneNumbersFromData?.map((item, index) => (
+                  <p key={index}>{item}</p>
+                ))}
+                <Button isIconOnly onClick={(e) => addNextPhone(e)}>
+                  <CiCirclePlus size={30} />
+                </Button>
               </div>
             </div>
           </div>
-          <Button type="submit" className="flex w-[30%] bg-green-600">
+          <Button type="submit" className="flex w-[30%] bg-green-600 text-wrap">
             Wyślij dane do serwera
           </Button>
         </div>

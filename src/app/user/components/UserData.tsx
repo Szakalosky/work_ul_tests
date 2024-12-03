@@ -2,6 +2,7 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import React, { useEffect, useState } from "react";
 import useGetUser from "../hooks/useGetUser";
+import { dataFromAPIType } from "@/app/types/important";
 
 const UserData = ({
   isGetUserButtonClicked,
@@ -15,8 +16,8 @@ const UserData = ({
   setIsGetUserButtonClicked: (isGetUserButtonClicked: boolean) => void;
   userIdFromData: string;
   setUserIdFromData: (userIdFromData: string) => void;
-  allDataFromFetch: object[];
-  setAllDataFromFetch: (allDataFromFetch: object[]) => void;
+  allDataFromFetch: dataFromAPIType[];
+  setAllDataFromFetch: (allDataFromFetch: dataFromAPIType[]) => void;
 }) => {
   const { data, loading, error, fetchUser, setData } = useGetUser();
   const [userId, setUserId] = useState<string>("");

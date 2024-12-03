@@ -26,6 +26,9 @@ const SideBar = ({
   const [isEditSiteClicked, setIsEditSiteClicekd] = useState<boolean>(false);
 
   const [userId, setUserId] = useState<string>("");
+  const [popOverPlacement, setPopOverPlacement] = useState<"bottom" | "right">(
+    "right"
+  );
 
   const getUserData = async () => {
     if (error) {
@@ -40,9 +43,23 @@ const SideBar = ({
     await getUserData();
   };
 
+  const updatePlacement = () => {
+    if (window.innerWidth <= 768) {
+      setPopOverPlacement("bottom");
+    } else {
+      setPopOverPlacement("right");
+    }
+  };
+
   useEffect(() => {
     console.log(data);
   }, [data]);
+
+  useEffect(() => {
+    updatePlacement();
+    window.addEventListener("resize", updatePlacement);
+    return () => window.removeEventListener("resize", updatePlacement);
+  }, []);
 
   //przekazać userID lub data do user/[id]/page.tsx za pomocą Link
 
@@ -60,7 +77,7 @@ const SideBar = ({
           </Link> */}
           {/* <Button onClick={() => setIsClicked(!isClicked)}>Edytuj</Button> */}
           {/* <Link href={`/user/${userId}`}>Znajdź</Link> */}
-          <Popover placement="right">
+          <Popover placement={popOverPlacement}>
             <PopoverTrigger>
               <Button className="border border-black p-2 w-full hover:bg-blue-300">
                 Szukaj

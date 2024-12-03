@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@nextui-org/table";
 import { Button } from "@nextui-org/button";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { dataFromAPIType } from "@/app/types/important";
 import EditSite from "../components/EditSite";
 import Link from "next/link";
@@ -18,6 +18,8 @@ import Link from "next/link";
 //pobrać ścieżke z id i tutaj wstawić
 const Page = () => {
   const { data, loading, error, fetchUser, setData } = useGetUser();
+
+  const router = useRouter();
 
   const { id } = useParams<{ id: string }>();
 
@@ -76,15 +78,18 @@ const Page = () => {
         </table>
         <div className="mt-4">
           <Link
-            href={{
-              pathname: `/user/edit/${id}`,
-              query: { data: JSON.stringify(allDataFromAPI) },
-            }}
+            href={`/user/edit/${id}`}
             className="bg-yellow-300 p-3 rounded-2xl"
-            target="_blank"
           >
             Edytuj
           </Link>
+          {/* <Button
+            type="button"
+            className="bg-yellow-300 p-3 rounded-2xl"
+            onClick={() => router.push(`/user/edit/${id}`)}
+          >
+            Edytuj
+          </Button> */}
         </div>
       </div>
       {/* {isEditButtonClicked && (

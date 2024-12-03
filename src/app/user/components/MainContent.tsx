@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import SideBar from "./SideBar";
 import EditSite from "./EditSite";
 import UserData from "./UserData";
+import { dataFromAPIType } from "@/app/types/important";
 
 const MainContent = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isGetUserClicked, setIsGetUserClicked] = useState(false);
   //const toggleButtonClicked = () => setIsGetUserClicked(!isGetUserClicked);
   const [userIdFromData, setUserIdFromData] = useState<string>("");
-  const [allDataFromFetch, setAllDataFromFetch] = useState<object[]>([]);
+  const [allDataFromFetch, setAllDataFromFetch] = useState<dataFromAPIType[]>(
+    []
+  );
   //const [isEditBFromUserPage,setIsEditBFromUserPage] = useState(false);
   return (
     <div className="custom-main-content">

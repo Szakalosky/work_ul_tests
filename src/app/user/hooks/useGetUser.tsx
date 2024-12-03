@@ -37,7 +37,7 @@ const useGetUser = () => {
         // console.log("Nie udało się pobrać użytkownika", err);
         // toast.error("Nie udało się pobrać użytkownika", { ...toastStyles });
         //setIsButtonOnIDPageClicked(false);
-        console.error("Nie udało się pobrać użytkownika");
+        console.error("Nie udało się pobrać użytkownika", err);
       } finally {
         setLoading(false);
       }
