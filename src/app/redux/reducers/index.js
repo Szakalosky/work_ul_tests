@@ -122,6 +122,7 @@ const initialState = {
   searchText: "",
   sortUsersByColumn: 0,
   filterByElementsButton: 1,
+  isFetchUserButtonClicked: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -166,6 +167,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filterByElementsButton: action.payload,
+      };
+    }
+    case "SET_IS_FETCH_USER_BUTTON_CLICKED": {
+      return {
+        ...state,
+        isFetchUserButtonClicked: action.payload,
       };
     }
     default:

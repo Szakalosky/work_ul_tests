@@ -269,7 +269,7 @@ const EditSite = ({
               </div>
             </div>
             <div className="custom-edit-panel-emails-phones">
-              <div className="flex flex-col items-end justify-between w-1/2 bg-gray-700">
+              <div className="flex flex-col items-end justify-between w-1/2 gap-2">
                 <p className="text-black h-auto">Email</p>
                 <Input
                   type="email"
@@ -288,7 +288,7 @@ const EditSite = ({
                   <CiCirclePlus size={30} />
                 </Button>
               </div>
-              <div className="flex flex-col items-end justify-between h-[100%] gap-2 w-1/2">
+              <div className="flex flex-col items-end justify-between gap-2 w-1/2">
                 <p className="text-black">Telefon</p>
                 <Input
                   type="number"

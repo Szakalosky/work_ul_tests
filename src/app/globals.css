@@ -11,6 +11,10 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --gradient-start: rgba(217, 0, 0, 0.678);
+    --gradient-stop1: rgba(200, 198, 214, 1);
+    --gradient-stop2: rgba(183, 179, 193, 1);
+    --gradient-end: rgba(237, 232, 232, 0.958);
   }
 }
 
@@ -20,16 +24,97 @@
       @apply bg-zinc-300 h-full grid grid-rows-2 grid-cols-1 text-sm;
     }
   } */
+
+  @keyframes shiny-text {
+    0%,
+    10% {
+      background-position: -200px;
+    }
+    20% {
+      background-position: top left;
+    }
+    90% {
+      background-position: top right;
+    }
+    100% {
+      background-position: 200px;
+    }
+  }
+
+  @keyframes translateXUserDataIn {
+    0% {
+      transform: translateX(200%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes translateXUserDataOut {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(200%);
+    }
+  }
+
+  .animate-userData-in {
+    animation: translateXUserDataIn 1.3s ease-in-out;
+  }
+
+  .animate-userData-out {
+    animation: translateXUserDataOut 0.9s ease-in-out;
+  }
+
   @media (min-width: 768px) {
+    .custom-div-gradient {
+      background: linear-gradient(
+        90deg,
+        rgba(6, 5, 28, 1) 0%,
+        rgba(138, 137, 145, 1) 53%,
+        rgba(240, 220, 220, 0.9305847338935574) 100%
+      );
+    }
+
+    .shine-navBar-text {
+      background: #222 -webkit-gradient(
+          linear,
+          left top,
+          right top,
+          from(#222),
+          to(#222),
+          color-stop(0.5, #fff)
+        ) 0 0 no-repeat;
+      -webkit-background-size: 200px;
+      background-size: 200px;
+      color: rgba(255, 255, 255, 0.1);
+      background-clip: text;
+      text-shadow: 0 0px 0px rgba(255, 255, 255, 0.5);
+      animation: shiny-text 3s infinite linear;
+    }
+    .custom-gradient {
+      background: linear-gradient(
+        90deg,
+        var(--gradient-start) 0%,
+        var(--gradient-stop1) 10%,
+        var(--gradient-stop2) 65%,
+        var(--gradient-end) 100%
+      );
+    }
+
     .custom-sidebar {
-      @apply bg-zinc-300 w-1/4  h-auto  grid grid-rows-2 grid-cols-1;
+      @apply w-1/5 h-auto grid grid-rows-2 grid-cols-1 left-0 transition-all duration-500 ease-in-out;
+    }
+    .custom-sidebar-collapse {
+      @apply bg-zinc-300 w-20 h-auto flex flex-col left-0 transition-all duration-500 ease-out;
     }
     .custom-main-content {
-      @apply min-h-screen flex flex-row bg-sky-600;
+      @apply min-h-screen flex flex-row;
     }
 
     .custom-user-data {
-      @apply flex flex-col w-full  bg-slate-600  items-start justify-start gap-2 py-4;
+      @apply flex flex-col w-full  bg-green-600  items-start justify-start gap-2 py-4;
     }
 
     .custom-edit-container {
@@ -70,7 +155,7 @@
     }
 
     .custom-sidebar {
-      @apply bg-zinc-300 w-full flex flex-col p-4;
+      @apply bg-zinc-300 w-full flex flex-col p-4 transition-all duration-500 ease-in-out;
     }
 
     .custom-user-data {

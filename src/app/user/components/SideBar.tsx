@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -12,23 +12,32 @@ import Link from "next/link";
 import useGetUser from "../hooks/useGetUser";
 import EditSite from "./EditSite";
 import { useParams } from "next/navigation";
+import { FaUserCog } from "react-icons/fa";
+import { MdInfo } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsFetchUserButtonClicked } from "@/app/redux/actions";
+import { RootState } from "@/app/rootStates/rootState";
 const SideBar = ({
   isClicked,
   setIsClicked,
+  isSlideButtonClicked,
+  setIsSlideButtonClicked,
 }: {
   isClicked: boolean;
   setIsClicked: (isClicked: boolean) => void;
+  isSlideButtonClicked: boolean;
+  setIsSlideButtonClicked: (isSlideButtonClicked: boolean) => void;
 }) => {
   //   const [allData, setAllData] = useGetUser();
   //   const getUsers = async () => {};
+  const dispatch = useDispatch();
   const { data, loading, error, fetchUser, setData } = useGetUser();
-
-  const [isEditSiteClicked, setIsEditSiteClicekd] = useState<boolean>(false);
 
   const [userId, setUserId] = useState<string>("");
   const [popOverPlacement, setPopOverPlacement] = useState<"bottom" | "right">(
     "right"
   );
+  //const [isFetchClicked, setIsFetchClicked] = useState(isClicked);
 
   const getUserData = async () => {
     if (error) {
@@ -63,23 +72,39 @@ const SideBar = ({
 
   //przekazać userID lub data do user/[id]/page.tsx za pomocą Link
 
+  useEffect(() => {
+    console.log("KLIK", isSlideButtonClicked);
+  }, [isSlideButtonClicked]);
+
+  const isFetchUserButtonClicked = useSelector(
+    (state: RootState) => state.name.isFetchUserButtonClicked
+  );
+
+  useEffect(() => {
+    //dispatch(setIsFetchUserButtonClicked(isFetchClicked));
+    console.log("sidebar button clicked", isFetchUserButtonClicked);
+  }, [isFetchUserButtonClicked, dispatch]);
+
   return (
-    <div className="custom-sidebar">
+    <div
+      className={`custom-sidebar custom-gradient ${
+        isSlideButtonClicked
+          ? "custom-sidebar-collapse"
+          : "custom-sidebar custom-gradient"
+      }`}
+    >
       <Accordion>
-        <AccordionItem key="1" aria-label="Accordion 1" title="Użytkownik">
-          {/* <Button>123</Button> */}
-          {/* <Link
-            href="/edit"
-            className="border border-black p-2 m-1 hover:bg-blue-300"
-            onClick={() => <EditSite />}
-          >
-            Edytuj
-          </Link> */}
-          {/* <Button onClick={() => setIsClicked(!isClicked)}>Edytuj</Button> */}
-          {/* <Link href={`/user/${userId}`}>Znajdź</Link> */}
+        <AccordionItem
+          key="1"
+          aria-label="Accordion 1"
+          title={isSlideButtonClicked ? <FaUserCog size={30} /> : "Użytkownik"}
+        >
           <Popover placement={popOverPlacement}>
             <PopoverTrigger>
-              <Button className="border border-black p-2 w-full hover:bg-blue-300">
+              <Button
+                className="border border-black p-2 w-full hover:bg-blue-300"
+                size={isSlideButtonClicked ? "sm" : "md"}
+              >
                 Szukaj
               </Button>
             </PopoverTrigger>
@@ -91,9 +116,6 @@ const SideBar = ({
                   onChange={(e) => setUserId(e.target.value)}
                   className="w-2/5"
                 />
-                {/* <Button onClick={handleSubmit} isLoading={loading}>
-                  Wyślij
-                </Button> */}
                 <Link
                   href={`/user/${userId}`}
                   className="border border-black px-2 py-3 rounded-xl hover:bg-slate-800 hover:text-white"
@@ -104,10 +126,21 @@ const SideBar = ({
             </PopoverContent>
           </Popover>
         </AccordionItem>
-        <AccordionItem key="2" aria-label="Accordion 2" title="Pobierz dane">
+        <AccordionItem
+          key="2"
+          aria-label="Accordion 2"
+          title={isSlideButtonClicked ? <MdInfo size={30} /> : "Pobierz dane"}
+        >
           <Button
-            onClick={() => setIsClicked(!isClicked)}
+            onClick={() => {
+              const newFetchState = !isClicked;
+              //setIsFetchClicked(newFetchState);
+              dispatch(setIsFetchUserButtonClicked(newFetchState));
+              setIsClicked(!isClicked);
+              // dispatch(setIsFetchUserButtonClicked(isFetchClicked));
+            }}
             className="border border-black p-2 w-full hover:bg-blue-300"
+            size={isSlideButtonClicked ? "sm" : "md"}
           >
             Pobierz
           </Button>

@@ -46,3 +46,10 @@ export const setSearchText = (text) => {
     payload: text,
   };
 };
+
+export const setIsFetchUserButtonClicked = (state) => {
+  return {
+    type: "SET_IS_FETCH_USER_BUTTON_CLICKED",
+    payload: state,
+  };
+};

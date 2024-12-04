@@ -14,5 +14,6 @@ export type RootState = {
     searchText: string | null;
     sortUsersByColumn: number;
     filterByElementsButton: number;
+    isFetchUserButtonClicked: boolean;
   };
 };
