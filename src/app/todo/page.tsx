@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/table";
 import React, { useEffect, useRef, useState } from "react";
 import { ToDoListType } from "../types/important";
+import NumericInput from "./components/NumericInput";
 
 // tabela , na która godzina przychodzą, uzytkownicy, wybor tygodnia, 52 tyg w roku, numerki, od kiedy do kiedy (który tydzień),tylko dział IT
 //nazwa użytkownika
@@ -185,6 +186,7 @@ const Page = () => {
           </div>
         </div>
       </form>
+      <NumericInput />
       <div>
         <Table
           aria-label="todos"
