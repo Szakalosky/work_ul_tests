@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import SideBar from "./SideBar";
-import EditSite from "./EditSite";
-import UserData from "./UserData";
+import SideBar from "../SideBar/SideBar";
+import EditSite from "../Edit/EditSite";
+import UserData from "../UserData/UserData";
 import { dataFromAPIType } from "@/app/types/important";
 import { GoSidebarExpand } from "react-icons/go";
 import { GoSidebarCollapse } from "react-icons/go";
@@ -10,6 +10,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "@/app/redux/store";
 import { RootState } from "@/app/rootStates/rootState";
 import { setIsFetchUserButtonClicked } from "@/app/redux/actions";
+import css from "./MainContent.module.css";
 
 const MainContent = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -32,9 +33,9 @@ const MainContent = () => {
   useEffect(() => {
     dispatch(setIsFetchUserButtonClicked(newState));
   }, [newState, dispatch]);
-  //const [isEditBFromUserPage,setIsEditBFromUserPage] = useState(false);
+  //const [isEditBFromUserPage,setIsEditBFromUserPage] = useState(false);className="custom-main-content custom-div-gradient"
   return (
-    <div className="custom-main-content custom-div-gradient">
+    <div className={`${css.customMainContent} custom-div-gradient`}>
       <SideBar
         isClicked={newState}
         setIsClicked={setNewState}

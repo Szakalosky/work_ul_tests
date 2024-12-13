@@ -1,0 +1,31 @@
+.customEditContainer {
+  @apply flex flex-col min-w-full mt-4;
+}
+
+.customEditPanelInitialData {
+  @apply grid grid-cols-3 grid-rows-1  bg-default-400 p-2;
+}
+
+.customEditPanelInitialDataInner {
+  @apply grid grid-cols-1 grid-rows-2  bg-default-700 items-center text-center gap-2 p-2;
+}
+
+.customEditPanel {
+  @apply flex flex-col;
+}
+
+.customEditPanelDepartmentPositionGroups {
+  @apply grid grid-cols-2 grid-rows-1 bg-orange-700 items-start gap-8;
+}
+
+.customEditPanelEmailsPhones {
+  @apply grid grid-cols-2 grid-rows-1 bg-slate-600 gap-2 w-full;
+}
+
+.customEditPanelEmailsPhones > div:first-child {
+  @apply justify-self-start items-end;
+}
+
+.customEditPanelEmailsPhones > div:last-child {
+  @apply justify-self-end items-end;
+}

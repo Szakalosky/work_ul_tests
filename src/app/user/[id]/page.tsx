@@ -12,8 +12,9 @@ import {
 import { Button } from "@nextui-org/button";
 import { useParams, useRouter } from "next/navigation";
 import { dataFromAPIType } from "@/app/types/important";
-import EditSite from "../components/EditSite";
+import EditSite from "../components/Edit/EditSite";
 import Link from "next/link";
+import { IoArrowBackOutline } from "react-icons/io5";
 
 //pobrać ścieżke z id i tutaj wstawić
 const Page = () => {
@@ -65,7 +66,16 @@ const Page = () => {
   const [allDataFromFetch, setAllDataFromFetch] = useState<object[]>([]);
   return (
     <div className="p-4 bg-slate-400 min-h-screen flex flex-row">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row">
+          <Link
+            href={"/user"}
+            className="bg-gray-200 p-3 rounded-xl text-xs text-black w-2/5 flex flex-row items-center gap-2 hover:bg-gray-300"
+          >
+            <IoArrowBackOutline />
+            Powrót
+          </Link>
+        </div>
         <table>
           <tbody>
             {Object.entries(allDataFromAPI).map(([key, value]) => (
@@ -76,22 +86,15 @@ const Page = () => {
             ))}
           </tbody>
         </table>
-        <div className="mt-4">
-          <Link
-            href={`/user/edit/${id}`}
-            className="bg-yellow-300 p-3 rounded-2xl"
-          >
-            Edytuj
-          </Link>
-          {/* <Button
-            type="button"
-            className="bg-yellow-300 p-3 rounded-2xl"
-            onClick={() => router.push(`/user/edit/${id}`)}
-          >
-            Edytuj
-          </Button> */}
-        </div>
+
+        <Link
+          href={`/user/edit/${id}`}
+          className="bg-blue-300 p-3 rounded-2xl w-2/5 hover:bg-gray-300 hover:text-black"
+        >
+          Edytuj
+        </Link>
       </div>
+
       {/* {isEditButtonClicked && (
         <EditSite
           passedAllDataFromFetch={allDataFromFetch}

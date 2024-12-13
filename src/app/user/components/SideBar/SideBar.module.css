@@ -1,0 +1,6 @@
+.customSidebar {
+  @apply w-1/5 h-auto flex flex-col left-0 transition-all duration-500 ease-in-out;
+}
+.customSidebarCollapse {
+  @apply bg-zinc-300 w-20 h-auto flex flex-col left-0 transition-all duration-500 ease-out;
+}

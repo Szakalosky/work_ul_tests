@@ -7,7 +7,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import React, { use, useEffect, useState } from "react";
 import { dataFromAPIType } from "@/app/types/important";
 import axios from "axios";
-
+import css from "./EditSite.module.css";
 const EditSite = ({
   sentUserId,
   setSentUserId,
@@ -185,26 +185,26 @@ const EditSite = ({
   };
 
   return (
-    <div className="custom-edit-container ">
+    <div className={css.customEditContainer}>
       <strong className="px-2">Dane użytkownika</strong>
       <form onSubmit={handleSubmit} className="gap-2">
         <div className="flex flex-col  p-2 gap-3">
-          <div className="custom-edit-panel-initial-data">
-            <div className="custom-edit-panel-initial-data-inner">
+          <div className={css.customEditPanelInitialData}>
+            <div className={css.customEditPanelInitialDataInner}>
               <p>Imię</p>
               <Input
                 value={firstNameFromData || ""}
                 onChange={(e) => setFirstNameFromData(e.target.value)}
               />
             </div>
-            <div className="custom-edit-panel-initial-data-inner">
+            <div className={css.customEditPanelInitialDataInner}>
               <p>Nazwisko</p>
               <Input
                 value={lastNameFromData || ""}
                 onChange={(e) => setLastNameFromData(e.target.value)}
               />
             </div>
-            <div className="custom-edit-panel-initial-data-inner">
+            <div className={css.customEditPanelInitialDataInner}>
               <p>ERP Login</p>
               <Input
                 value={erpLoginFromData || ""}
@@ -212,8 +212,8 @@ const EditSite = ({
               />
             </div>
           </div>
-          <div className="custom-edit-panel ">
-            <div className="custom-edit-panel-department-position-groups">
+          <div className={css.customEditPanel}>
+            <div className={css.customEditPanelDepartmentPositionGroups}>
               <div className="flex flex-col w-1/3">
                 <RadioGroup label="Dział" classNames={{ label: "text-black" }}>
                   {names.map((type) => (
@@ -246,7 +246,7 @@ const EditSite = ({
                 </RadioGroup>
               </div>
             </div>
-            <div className="custom-edit-panel-department-position-groups">
+            <div className={css.customEditPanelDepartmentPositionGroups}>
               <div className="flex flex-col">
                 <CheckboxGroup
                   label="Grupa 1"
@@ -268,7 +268,7 @@ const EditSite = ({
                 </CheckboxGroup>
               </div>
             </div>
-            <div className="custom-edit-panel-emails-phones">
+            <div className={css.customEditPanelEmailsPhones}>
               <div className="flex flex-col items-end justify-between w-1/2 gap-2">
                 <p className="text-black h-auto">Email</p>
                 <Input

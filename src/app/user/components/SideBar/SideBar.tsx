@@ -9,14 +9,15 @@ import {
 } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
-import useGetUser from "../hooks/useGetUser";
-import EditSite from "./EditSite";
+import useGetUser from "../../hooks/useGetUser";
+import EditSite from "../Edit/EditSite";
 import { useParams } from "next/navigation";
 import { FaUserCog } from "react-icons/fa";
 import { MdInfo } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsFetchUserButtonClicked } from "@/app/redux/actions";
 import { RootState } from "@/app/rootStates/rootState";
+import css from "./SideBar.module.css";
 const SideBar = ({
   isClicked,
   setIsClicked,
@@ -87,10 +88,10 @@ const SideBar = ({
 
   return (
     <div
-      className={`custom-sidebar custom-gradient ${
+      className={`${css.customSidebar} custom-div-gradient ${
         isSlideButtonClicked
-          ? "custom-sidebar-collapse"
-          : "custom-sidebar custom-gradient"
+          ? `${css.customSidebarCollapse}`
+          : `${css.customSidebar}custom-div-gradient`
       }`}
     >
       <Accordion>

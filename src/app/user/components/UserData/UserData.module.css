@@ -1,0 +1,29 @@
+@keyframes translateXUserDataIn {
+  0% {
+    transform: translateX(200%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes translateXUserDataOut {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animateUserDataIn {
+  animation: translateXUserDataIn 1.3s ease-in-out;
+}
+
+.animateUserDataOut {
+  animation: translateXUserDataOut 0.9s ease-in-out;
+}
+
+.customUserData {
+  @apply flex flex-col w-full  bg-green-600  items-start justify-start gap-2 py-4;
+}

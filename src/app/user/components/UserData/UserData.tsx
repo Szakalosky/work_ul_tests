@@ -1,11 +1,12 @@
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import React, { useEffect, useState } from "react";
-import useGetUser from "../hooks/useGetUser";
+import useGetUser from "../../hooks/useGetUser";
 import { dataFromAPIType } from "@/app/types/important";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/rootStates/rootState";
-
+import css from "./UserData.module.css";
+import { setIsFetchUserButtonClicked } from "@/app/redux/actions";
 const UserData = ({
   isGetUserButtonClicked,
   setIsGetUserButtonClicked,
@@ -51,6 +52,7 @@ const UserData = ({
       setErrorUserId("Pole może mieć max 4 cyfry i nie może być napisem");
       return;
     }
+
     if (data) {
       setIsGetUserButtonClicked(!isGetUserButtonClicked);
       setUserIdFromData(userId);
@@ -69,7 +71,7 @@ const UserData = ({
   useEffect(() => {
     setNewState(!isFetchUserButtonClicked);
     console.log("user button clicked", newState);
-  }, [newState, isFetchUserButtonClicked]);
+  }, []);
 
   //   useEffect(() => {
   //     console.log("button clicked", isGetUserButtonClicked);
@@ -79,8 +81,8 @@ const UserData = ({
 
   return (
     <div
-      className={`custom-user-data${
-        newState ? "animate-userData-out" : "animate-userData-in"
+      className={`${css.customUserData} ${
+        newState ? `${css.animateUserDataOut}` : `${css.animateUserDataIn}`
       }`}
     >
       <div className="flex flex-row gap-2 ">

@@ -25,7 +25,7 @@
     }
   } */
 
-  @keyframes shiny-text {
+  /* @keyframes shiny-text {
     0%,
     10% {
       background-position: -200px;
@@ -39,7 +39,7 @@
     100% {
       background-position: 200px;
     }
-  }
+  } */
 
   @keyframes translateXUserDataIn {
     0% {
@@ -67,17 +67,26 @@
     animation: translateXUserDataOut 0.9s ease-in-out;
   }
 
+  .custom-div-gradient {
+    background: linear-gradient(
+      90deg,
+      rgba(6, 5, 28, 1) 0%,
+      rgba(138, 137, 145, 1) 53%,
+      rgba(240, 220, 220, 0.9305847338935574) 100%
+    );
+  }
+
   @media (min-width: 768px) {
-    .custom-div-gradient {
+    /* .custom-div-gradient {
       background: linear-gradient(
         90deg,
         rgba(6, 5, 28, 1) 0%,
         rgba(138, 137, 145, 1) 53%,
         rgba(240, 220, 220, 0.9305847338935574) 100%
       );
-    }
+    } */
 
-    .shine-navBar-text {
+    /* .shine-navBar-text {
       background: #222 -webkit-gradient(
           linear,
           left top,
@@ -92,7 +101,7 @@
       background-clip: text;
       text-shadow: 0 0px 0px rgba(255, 255, 255, 0.5);
       animation: shiny-text 3s infinite linear;
-    }
+    } */
     .custom-gradient {
       background: linear-gradient(
         90deg,
@@ -103,17 +112,17 @@
       );
     }
 
-    .custom-sidebar {
+    /* .custom-sidebar {
       @apply w-1/5 h-auto grid grid-rows-2 grid-cols-1 left-0 transition-all duration-500 ease-in-out;
     }
     .custom-sidebar-collapse {
       @apply bg-zinc-300 w-20 h-auto flex flex-col left-0 transition-all duration-500 ease-out;
-    }
-    .custom-main-content {
+    } */
+    /* .custom-main-content {
       @apply min-h-screen flex flex-row;
-    }
+    } */
 
-    .custom-user-data {
+    /* .custom-user-data {
       @apply flex flex-col w-full  bg-green-600  items-start justify-start gap-2 py-4;
     }
 
@@ -147,9 +156,9 @@
 
     .custom-edit-panel-emails-phones > div:last-child {
       @apply justify-self-end items-end;
-    }
+    } */
   }
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     .custom-main-content {
       @apply min-h-screen flex flex-col bg-violet-900 p-2;
     }
@@ -193,7 +202,7 @@
     .custom-edit-panel-emails-phones > div:last-child {
       @apply justify-self-end;
     }
-  }
+  } */
 }
 
 body {

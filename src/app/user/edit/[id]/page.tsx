@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import EditSite from "../../components/EditSite";
+import EditSite from "../../components/Edit/EditSite";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import useGetUser from "../../hooks/useGetUser";

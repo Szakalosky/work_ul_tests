@@ -1,0 +1,3 @@
+.customMainContent {
+  @apply min-h-screen flex flex-row;
+}
